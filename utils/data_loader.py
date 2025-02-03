@@ -2,7 +2,7 @@ import yfinance as yf
 from datetime import datetime
 import time
 
-def data_loader(start_date, end_date):
+def data_loader(start_date, end_date, ticker):
     """
     Load NASDAQ financial data between start and end date, inclusive.
     """
@@ -17,7 +17,7 @@ def data_loader(start_date, end_date):
     while n_tries < max_tries:
 
         try:
-            data = yf.download("^IXIC", start = start_date, end = end_date)
+            data = yf.download(f"{ticker}", start = start_date, end = end_date)
             
             # count and return the number of nans
             print(f"Found NaNs:\n{data.isna().sum()}\n")

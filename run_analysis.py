@@ -20,6 +20,7 @@ def main():
     parser.add_argument("analysis", type=str, help="Analysis name. Must match those in /scripts.")
     parser.add_argument("start_date", type=str, help="Start date for analysis in ddmmyyyy format.")
     parser.add_argument("end_date", type=str, help="End date for analysis in ddmmyyyy format.")
+    parser.add_argument("--ticker", type=str, default="^IXIC", help="Specify stock / index ticker",)
     args = parser.parse_args()
 
     # verify inputs
@@ -31,7 +32,7 @@ def main():
         print(f"Analysis module '{args.analysis}' not found.")
 
     print(f"Running {args.analysis} between {args.start_date} to {args.end_date} inclusive.")
-    analysis_module.run_analysis(args.start_date, args.end_date)
+    analysis_module.run_analysis(args.start_date, args.end_date, args.ticker)
 
 if __name__ == "__main__":
     main()

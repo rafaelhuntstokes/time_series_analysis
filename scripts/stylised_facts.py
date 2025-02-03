@@ -11,7 +11,7 @@ def calc_returns(data):
     data["Return"]     = data["Adj Close"].pct_change()
     data["Log Return"] = np.log( data["Adj Close"] / data["Adj Close"].shift(1) )
 
-def run_analysis(start_date, end_date):
+def run_analysis(start_date, end_date, ticker):
     """
     Called by run_analysis entry script. Generates the following plots to verify
     observed 'stylized facts' of financial data, between the start and end dates:
@@ -23,14 +23,14 @@ def run_analysis(start_date, end_date):
         clusters using Mood test statistic
     """
 
-    data = data_loader.data_loader(start_date, end_date)
+    data = data_loader.data_loader(start_date, end_date, ticker)
     if isinstance(data, pd.DataFrame) == False:
         return
 
     # calculate returns and log returns and add respective cols to data
     calc_returns(data)
 
-    # create an output plot of the returns
+    # create an output plot of the returns & aggregational gaussianity
     plotting.plot_returns(data, "stylised_facts")
 
     
