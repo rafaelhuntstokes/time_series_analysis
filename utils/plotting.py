@@ -97,6 +97,7 @@ def plot_returns(data, analysis_method):
                 axes[iplot].legend()
             plt.savefig(f"outputs/{analysis_method}/{name}_aggregation.pdf")
             plt.close()
+    
     # create plots of arithmetic return and log ratio of returns
     create_return_series("Return")
     create_return_series("Log Return")
@@ -105,3 +106,20 @@ def plot_returns(data, analysis_method):
     create_individual_histos("Return")
     create_individual_histos("Log Return")
     create_aggregational_plots("Log Return")
+
+def plot_clusters(data, change_point_idx):
+    """
+    Plot log returns and identified change points between high / low volatility regimes.
+    """
+
+    # find the dates at which to plot cluster start/ends
+    cluster_dates = data["Log Return"].iloc[change_point_idx].index
+    plt.figure(figsize = (6, 4))
+    ax = plt.gca()
+    data.plot(ax = ax, y = "Log Return", color = "black", linewidth = 2)
+    plt.ylabel("Log Return")
+    plt.xlabel("Date (YYYY-MM-DD)")
+    y_min, y_max = ax.get_ylim()
+    ax.vlines(cluster_dates, ymin = y_min, ymax = y_max, color = "red", linestyle = "dotted")
+    plt.savefig(f"outputs/stylised_facts/clustering.pdf")
+    plt.close()

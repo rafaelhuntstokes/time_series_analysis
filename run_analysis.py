@@ -25,7 +25,7 @@ def main():
 
     # verify inputs
     if check_date_format(args.start_date) == 0 or check_date_format(args.end_date) == 0:
-        return    
+        return
     try:
         analysis_module = importlib.import_module(f"scripts.{args.analysis}")
     except:
